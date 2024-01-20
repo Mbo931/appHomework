@@ -1,5 +1,5 @@
-import authConfig from "../config/authConfig";
-import db from "../models";
+import authConfig from "../config/authConfig.js";
+import db from "../models/index.js";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
 
@@ -60,7 +60,7 @@ const Role = db.role;
 
 
 
-  exports.signIn = (req, res) => {
+  const signIn = (req, res) => {
   User.findOne({ username: req.body.username })
     .populate("roles", "-__v")
     .exec((err, user) => {
@@ -81,7 +81,10 @@ const Role = db.role;
         });
       }
 
-      const token = jwt.sign({ userId: user._id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '24h' });
+      const token = jwt.sign(
+        { userId: user._id }, 
+        authConfig.secret, 
+        { expiresIn: '24h' });
 
       // Récupération des rôles sous forme d'autorités
       const authorities = user.roles.map(role => `ROLE_${role.name.toUpperCase()}`);

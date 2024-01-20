@@ -3,8 +3,7 @@ import dbConfig from '../config/dbConfig.js';
 
 const database = () => {
   const mongooseOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    
   };
   
   mongoose.connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, mongooseOptions)  

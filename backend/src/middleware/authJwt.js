@@ -1,4 +1,4 @@
-import { Jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import authConfig from "../config/authConfig.js";
 import db from "../models/index.js";
 const User = db.user;
