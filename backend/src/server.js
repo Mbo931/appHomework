@@ -4,7 +4,8 @@ import { database } from './services/database.js';
 import cors from 'cors';
 import userRouter from './routes/userRoutes.js';
 import authRouter from './routes/authRoutes.js'
-import path from 'path';  
+import path from 'path'; 
+import Role from './models/Role.js'; 
 
 
 const PORT = process.env.PORT || 3000;
@@ -30,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 ////////////////////
 
 function initial() {
-  Role.estimatedDocumentCount((err, count) => {
+  Role.countDocuments((err, count) => {
     if (!err && count === 0) {
       new Role({
         name: "user"
@@ -49,7 +50,7 @@ function initial() {
           console.log("error", err);
         }
 
-        console.log("added 'moderator' to roles collection");
+        console.log("added 'refer' to roles collection");
       });
 
       new Role({
@@ -64,6 +65,7 @@ function initial() {
     }
   });
 }
+initial()
 
 /////////////////////////////////
 app.get('/', (req, res) => {
