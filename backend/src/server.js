@@ -3,9 +3,13 @@ import dotenv from 'dotenv';
 import { database } from './services/database.js';
 import cors from 'cors';
 import userRouter from './routes/userRoutes.js';
-import authRouter from './routes/authRoutes.js'
-import path from 'path'; 
+import authRouter from './routes/authRoutes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import {dirname} from 'path'; 
 import Role from './models/Role.js'; 
+import 'esm';
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -34,13 +38,13 @@ function initial() {
   Role.countDocuments((err, count) => {
     if (!err && count === 0) {
       new Role({
-        name: "user"
+        name: "anim"
       }).save(err => {
         if (err) {
           console.log("error", err);
         }
 
-        console.log("added 'user' to roles collection");
+        console.log("added 'anim' to roles collection");
       });
 
       new Role({
@@ -68,13 +72,12 @@ function initial() {
 initial()
 
 /////////////////////////////////
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/frontend/index.html'));
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-});
 
 app.use('/api/role', userRouter);
 app.use('/api/auth', authRouter);
