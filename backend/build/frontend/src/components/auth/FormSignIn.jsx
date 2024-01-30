@@ -1,6 +1,9 @@
 import { useState } from "react";
+import AuthService from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 
 function FormSignin() {
+  const navigate =useNavigate
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -26,13 +29,39 @@ function FormSignin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Formulaire soumis avec les données :', formData);
-    // Ajoutez votre logique de soumission du formulaire ici
+    
+
+    
+    if (checkBtn.current.context._errors.length === 0) {
+      AuthService.login(username, password).then(
+        () => {
+          navigate("/profile");
+          window.location.reload();
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+          setLoading(false);
+          setMessage(resMessage);
+        }
+      );
+    } else {
+      setLoading(false);
+    }
+    
   };
 
   const formFields = [
     { name: 'username', label: 'Nom d\'utilisateur', type: 'text' },
     { name: 'password', label: 'Mot de passe', type: 'password' },
   ];
+
+
 
   return (
     <>

@@ -12,20 +12,31 @@ import 'esm';
 
 
 
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI;
-
-
 database();
 
 const app = express();
+
+app.use(cors())
 /////////////////////////
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.setHeader("Content-Type", "text/javascript");
+
   next();
 });
+export default function authHeader() {
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  if (user && user.accessToken) {
+    // for Node.js Express back-end
+    return { 'x-access-token': user.accessToken };
+  } else {
+    return {};
+  }
+}
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -69,20 +80,28 @@ function initial() {
     }
   });
 }
+
 initial()
 
 /////////////////////////////////
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/frontend/index.html'));
-});
+
+
+//app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+//app.get('/*', (req, res) => {
+//  res.sendFile(path.join(__dirname, '../build/frontend/index.html'));
+//});
 
 
 app.use('/api/role', userRouter);
 app.use('/api/auth', authRouter);
 
 ///////////////////////////////
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });

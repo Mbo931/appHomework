@@ -1,17 +1,16 @@
 import mongoose from "mongoose";
-
+import User from './User.js'
+import Role from './Role.js';
 mongoose.Promise = global.Promise;
 
-const db = {};
+const db = {
+    
+};
 
 db.mongoose = mongoose;
 
-// Utilisez des chemins relatifs pour les modules user et role
-import * as UserModule from './User.js';
-import * as RoleModule from './Role.js';
-
-db.user = UserModule.default;
-db.role = RoleModule.default;
+db.user = User.default;
+db.role = Role.default;
 
 db.ROLES = ["anim", "admin", "refer"];
 

@@ -1,20 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import AuthView from './views/AuthView'
-import FormSignup from './components/auth/FormSignup'
-import FormSignin from './components/auth/FormSignIn'
+import { Outlet } from "react-router-dom";
+import './App.css';
+import { Link } from "react-router-dom";
 
 function App() {
-
+  
   return (
     <>
-      <h1>La Fosse aux Fraises</h1>
-      <FormSignin/>
-       
-    </>
-  )
+     <nav className="header">
+            <h1><Link to="/home">La Fosse aux Fraises</Link></h1>
+            <ul>
+                <li><Link to="/login">Connexion</Link></li>
+                <li><Link to="/register">Création de compte</Link></li>
+            </ul>
+        </nav>
+      <Outlet />
+      </>
+    
+  );
 }
 
-export default App
+export default App;
