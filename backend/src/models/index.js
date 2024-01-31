@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 import User from './User.js'
 import Role from './Role.js';
+
 mongoose.Promise = global.Promise;
 
-const db = {
-    
-};
+const db = [];
 
 db.mongoose = mongoose;
 
