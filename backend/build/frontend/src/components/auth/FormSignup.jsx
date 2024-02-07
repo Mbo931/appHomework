@@ -14,7 +14,7 @@ function FormSignup() {
 
   const [message, setMessage] = useState(""); // Ajoutez cet état pour gérer les messages
   const [successful, setSuccessful] = useState(false); // Ajoutez cet état pour gérer l'état de réussite
-  const navigate = useNavigate; 
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -35,6 +35,7 @@ function FormSignup() {
   const handleSubmit = (e) => {
   e.preventDefault();
   console.log('Formulaire soumis avec les données :', formData);
+  
 
   // Extraction des valeurs depuis formData
   const { username, email, password } = formData;
@@ -42,9 +43,12 @@ function FormSignup() {
   AuthService.register(username, email, password).then(
     (response) => {
       setMessage(response.data.message); 
-      setSuccessful(true); 
+      setSuccessful(true);
+      window.location.reload() 
       console.log('Données envoyées');
       navigate("/profile"); 
+      console.log('Formulaire soumis avec les données :', formData);
+
     },
     (error) => {
       const resMessage =

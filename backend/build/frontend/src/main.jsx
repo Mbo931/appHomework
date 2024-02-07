@@ -7,11 +7,16 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 import Profil from './components/Profil.jsx';
+import AdminBoard from './components/Board/AdminBoard.jsx';
+import ReferentBoard from './components/Board/ReferentBoard.jsx';
+import AnimBoard from './components/Board/AnimBoard.jsx';
+import ErrorPage from './components/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
+    errorElement: <ErrorPage />,
     children:[
       {
     path:"/login",
@@ -22,13 +27,26 @@ const router = createBrowserRouter([
       element:<Register/>
   },
   {
-    path:"/profil",
+    path:"/profile",
     element: <Profil/>
   },
   {
     path:"/home",
     element:<Home/>
-  }
+  },
+  {
+    path:"/admin",
+    element:<AdminBoard/>
+  },
+  {
+    path:"/refer",
+    element:<ReferentBoard/>
+  },
+  {
+    path:"/anim",
+    element:<AnimBoard/>
+  },
+
     ]
   },
   

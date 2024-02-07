@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../services/userService";
+import ChildrenDetail from "./ChildrenDetail";
+import ListChildren from "./ListChildren";
 
 function Home() {
 
@@ -25,7 +27,7 @@ function Home() {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
+        <ListChildren/>
       </header>
     </div>
   );

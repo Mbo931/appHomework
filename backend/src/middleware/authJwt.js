@@ -3,9 +3,10 @@ import authConfig from "../config/authConfig.js";
 import db from "../models/index.js";
 const User = db.user;
 const Role = db.role;
-
+  
 const verifyToken = (req,res,next)=>{
-    let token = req.headers["x-access-token"];
+    let token = req.headers.authorization;
+    //console.log(req.headers.authorization);
     if(!token){
         return res.status(403).send({ message: "No token provided!" });
     }
@@ -30,21 +31,18 @@ const isAdmin = (req, res, next) => {
     if (err) {
       return res.status(500).send({ message: err });
     }
+    if (!user) { 
+      return res.status(404).send({ message: "Utilisateur non trouvé." });
+    }
     Role.find(
-      { _id: { $in: user.roles } }, // Utiliser user au lieu de users
+      { _id: { $in: user.roles } },
       (err, roles) => {
         if (err) {
           return res.status(500).send({ message: err });
         }
-        let isAdmin = false; // Ajouter une variable pour suivre si l'utilisateur est administrateur
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
-            isAdmin = true; // Mettre à jour la variable isAdmin
-            break; // Sortir de la boucle dès qu'on trouve un rôle admin
-          }
-        }
+        const isAdmin = roles.some(role => role.name === "admin"); // Utilisation de 'some' pour simplifier
         if (isAdmin) {
-          return next(); // Appeler next() seulement si l'utilisateur est admin
+          return next();
         } else {
           return res.status(403).send({ message: "Il faut être Admin" });
         }
@@ -58,21 +56,18 @@ const isRefer = (req, res, next) => {
     if (err) {
       return res.status(500).send({ message: err });
     }
+    if (!user) { // Vérifiez si l'utilisateur existe
+      return res.status(404).send({ message: "Utilisateur non trouvé." });
+    }
     Role.find(
-      { _id: { $in: user.roles } }, 
+      { _id: { $in: user.roles } },
       (err, roles) => {
         if (err) {
           return res.status(500).send({ message: err });
         }
-        let isRefer = false; 
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "refer") {
-            isRefer = true; 
-            break; 
-          }
-        }
+        const isRefer = roles.some(role => role.name === "refer"); // Utilisation de 'some' pour simplifier
         if (isRefer) {
-          return next(); 
+          return next();
         } else {
           return res.status(403).send({ message: "Il faut être Réferent" });
         }
