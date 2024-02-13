@@ -8,7 +8,7 @@ router.get("/", findAll);
 router.get("/:id", findOne);
 router.put("/:id", update);
 router.delete("/:id",deleteOne);
-router.post('/children/:id/comments',addComment);
+router.post('/:id/comments',addComment);
 
 
 export default router;  

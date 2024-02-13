@@ -35,10 +35,9 @@ export const  findAll= async (req,res)=>{
   }
 }
 export const findOne =async (req, res) => {
-  const { id } = req.params.id; // Ou tout autre critère de recherche dans req.query ou req.body
-
+  const id  = req.params.id; // Ou tout autre critère de recherche dans req.query ou req.body
   try {
-    const child = await Children.findOne({ _id: id }); // Utilisez le critère de recherche approprié
+    const child = await Children.findById({ _id: id }); // Utilisez le critère de recherche approprié
     if (!child) {
       return res.status(404).send({ message: "Enfant non trouvé." });
     }

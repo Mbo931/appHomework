@@ -9,25 +9,35 @@ const api = axios.create({
 
 const API_URL = api.defaults.baseURL; // Utilisez l'URL de base de l'instance axios
 
-class ChildrenService {
-    postAddChildren(data) { // Assurez-vous de passer les données nécessaires en paramètre
+
+    const postAddChildren=(data)=> { // Assurez-vous de passer les données nécessaires en paramètre
         return api.post('addChildren', data);
     }
-    getFindAllChildren() {
-        return api.get('allChildren');
+    const getFindAllChildren=()=> {
+        return api.get('');
     }
-    getFindOneChildren(id) { // Prend l'ID en paramètre
+    const getFindOneChildren=(id)=> { // Prend l'ID en paramètre
         return api.get(`${id}`); // Utilisez des littéraux de gabarit pour insérer l'ID
     }
-    putUpdateChildren(id, data) { // Prend l'ID et les données à mettre à jour en paramètres
+    const putUpdateChildren=(id, data)=> { // Prend l'ID et les données à mettre à jour en paramètres
         return api.put(`${id}`, data); // Utilisez des littéraux de gabarit pour insérer l'ID
     }
-    deleteChildren(id) { // Prend l'ID en paramètre
+    const deleteChildren=(id)=> { // Prend l'ID en paramètre
         return api.delete(`${id}`); // Utilisez des littéraux de gabarit pour insérer l'ID
     }
-    postAddComment(id, commentData) { // Prend l'ID et les données du commentaire en paramètres
+    const postAddComment=(id, commentData)=> { // Prend l'ID et les données du commentaire en paramètres
         return api.post(`${id}/comments`, commentData); // Utilisez des littéraux de gabarit pour insérer l'ID
     }
+    
+const ChildrenService ={
+    postAddChildren,
+    getFindAllChildren,
+    getFindOneChildren,
+    putUpdateChildren,
+    deleteChildren,
+    postAddComment
+
+
 }
 
 export default ChildrenService;

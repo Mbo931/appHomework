@@ -1,3 +1,8 @@
+* {
+  min-width: 0;
+  font: inherit;
+}
+
 /* Box sizing rules */
 *,
 *::before,
@@ -28,12 +33,24 @@ body {
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  background-color: var(--dark-color);
 }
 
 /* Remove list styles on ul, ol elements */
 ul[class],
 ol[class] {
   list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 
 /* A elements that don't have a class get default styles */
@@ -42,9 +59,12 @@ a:not([class]) {
 }
 
 /* Make images easier to work with */
-img {
+img,
+video,
+svg {
   max-width: 100%;
   display: block;
+  height: auto;
 }
 
 /* Natural flow and rhythm in articles by default */

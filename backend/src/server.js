@@ -19,7 +19,7 @@ database();
 
 const app = express();
 
-app.use(cors())
+//app.use(cors())
 /////////////////////////
 
 app.use((req, res, next) => {
@@ -43,7 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 ////////////////////
 
-function initial() {
+function initialRole() {
   Role.countDocuments((err, count) => {
     if (!err && count === 0) {
       new Role({
@@ -79,7 +79,27 @@ function initial() {
   });
 }
 
-initial()
+initialRole()
+
+async function addRandomPersonnesAPrevenir  ()  {
+  const allChildren = await Children.find(); // Récupère tous les documents Children
+
+  const promises = allChildren.map(async (child) => {
+    const randomPerson = {
+      firstName: `FirstName${Math.floor(Math.random() * 100)}`, // Génère un prénom aléatoire
+      lastName: `LastName${Math.floor(Math.random() * 100)}`, // Génère un nom de famille aléatoire
+      relation: 'Parent', // Vous pouvez également générer cela aléatoirement
+      phoneNumber: `+12345678${Math.floor(Math.random() * 100)}`, // Génère un numéro de téléphone aléatoire
+    };
+
+    return Children.updateOne({ _id: child._id }, { $push: { personnesAPrevenir: randomPerson } });
+  });
+
+  await Promise.all(promises);
+  console.log('Toutes les personnes à prévenir ont été ajoutées.');
+};
+
+addRandomPersonnesAPrevenir();
 
 /////////////////////////////////
 

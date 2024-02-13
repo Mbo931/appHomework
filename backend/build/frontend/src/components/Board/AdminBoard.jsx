@@ -29,6 +29,14 @@ function AdminBoard() {
       <header className="jumbotron">
         <h3>{content}</h3>
       </header>
+      <sidebar className="sideBarAdmin">
+        <ul>
+          <li>Gestion des Sessions</li>
+          <li>Gestion des Enfants</li>
+          <li>Gestion des Utilisateus</li>
+          
+        </ul>
+      </sidebar>
     </div>
         </>
      );

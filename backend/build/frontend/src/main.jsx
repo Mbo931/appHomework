@@ -11,12 +11,13 @@ import AdminBoard from './components/Board/AdminBoard.jsx';
 import ReferentBoard from './components/Board/ReferentBoard.jsx';
 import AnimBoard from './components/Board/AnimBoard.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
+import ChildrenDetail from './components/ChildrenDetail.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
-    errorElement: <ErrorPage />,
+    
     children:[
       {
     path:"/login",
@@ -36,7 +37,8 @@ const router = createBrowserRouter([
   },
   {
     path:"/admin",
-    element:<AdminBoard/>
+    element:<AdminBoard/>,
+    
   },
   {
     path:"/refer",
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
     path:"/anim",
     element:<AnimBoard/>
   },
+  {
+    path:"/:childrenId",
+    element:<ChildrenDetail/>
+  }
 
     ]
   },

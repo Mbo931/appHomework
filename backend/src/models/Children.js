@@ -18,7 +18,7 @@ const Children = mongoose.model(
     {
       firstName:String,
       lastName:String,
-      relation: String, // Par exemple, parent, grand-parent, tuteur, etc.
+      relation: String, 
       phoneNumber: String,
     },
   ],

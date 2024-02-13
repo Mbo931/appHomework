@@ -10,7 +10,7 @@ import AuthService from "./services/authService";
 function App() {
   const [showModeratorBoard, setShowReferentBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(false);
 
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function App() {
 
     if (user) {
       setCurrentUser(user);
-      setShowReferentBoard(user.roles.includes("ROLE_REFERENT"));
+      setShowReferentBoard(user.roles.includes("ROLE_REFER"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);
@@ -35,7 +35,7 @@ function App() {
                 
 
                
-              {setShowReferentBoard && (
+              {setCurrentUser && (
             <li className="nav-item">
               <Link to={"/anim"} className="nav-link">
                 Animateur Board
@@ -78,13 +78,13 @@ function App() {
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/login"} className="nav-link">
-                Login
+                Connexion
               </Link>
             </li>
 
             <li className="nav-item">
               <Link to={"/register"} className="nav-link">
-                Sign Up
+                Inscription
               </Link>
             </li>
           </div>
